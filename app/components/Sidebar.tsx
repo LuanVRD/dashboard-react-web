@@ -1,5 +1,5 @@
 import { Colors } from "@/constants/Colors";
-import { Link } from "expo-router";
+import { Link, useSegments } from "expo-router";
 import { JSX, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -10,30 +10,33 @@ type SidebarItem = {
 
 export default function SideBar(): JSX.Element {
   const [hoverIndex, setHoverIndex] = useState<number | null>(null);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(0);
 
   const styles = createStyles();
   const sidebar = createSidebar();
+
+  let segments = useSegments();
 
   const elements = sidebar.map((x, i) => (
     <Pressable
       key={i}
       onHoverIn={() => setHoverIndex(i)}
       onHoverOut={() => setHoverIndex(null)}
-      onPress={() => setSelectedIndex(i)}
     >
       <Link
         key={i}
         style={[
           styles.item,
           hoverIndex === i && styles.itemHovered,
-          selectedIndex === i && styles.itemSelected,
+          segments[segments.length - 1] === x.href && styles.itemSelected,
         ]}
-        href={x.href as any}
+        href={`/${x.href}` as any}
       >
         <Text
           key={i}
-          style={[styles.text, selectedIndex === i && styles.textSelected]}
+          style={[
+            styles.text,
+            segments[segments.length - 1] === x.href && styles.textSelected,
+          ]}
         >
           {x.name}
         </Text>
@@ -78,19 +81,19 @@ function createSidebar(): SidebarItem[] {
   return [
     {
       name: "Home",
-      href: "/home",
+      href: "home",
     },
     {
       name: "Usuários",
-      href: "/users",
+      href: "users",
     },
     {
       name: "Página 3",
-      href: "/page3",
+      href: "page3",
     },
     {
       name: "Página 4",
-      href: "/page4",
+      href: "page4",
     },
   ];
 }
