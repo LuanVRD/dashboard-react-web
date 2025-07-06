@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { JSX } from "react";
 import { FlatList, Text, View } from "react-native";
 
@@ -19,9 +20,19 @@ export default function List({ data, columns }: ListProps): JSX.Element {
   const Item = (item: any) => (
     <View style={{ flex: 1, flexDirection: "row", padding: 10 }}>
       {columns.map((x, i) => (
-        <Text key={i} style={{ flex: 1 }}>
-          {item[x]}
-        </Text>
+        <View key={i} style={{ flex: 1 }}>
+          {x === "options" ? (
+            <Link key={i} href={`./${item["id"]}/detail` as any}>
+              <Text key={i} style={{ flex: 1 }}>
+                Editar
+              </Text>
+            </Link>
+          ) : (
+            <Text key={i} style={{ flex: 1 }}>
+              {item[x]}
+            </Text>
+          )}
+        </View>
       ))}
     </View>
   );

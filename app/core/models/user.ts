@@ -1,8 +1,8 @@
 export type User = {
-  id: string;
-  name: string;
-  status: Status;
-  role: UserRole;
+  id?: string;
+  name?: string;
+  status?: Status;
+  role?: UserRole;
 };
 
 export enum UserRole {

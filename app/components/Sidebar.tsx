@@ -27,7 +27,7 @@ export default function SideBar(): JSX.Element {
         style={[
           styles.item,
           hoverIndex === i && styles.itemHovered,
-          segments[segments.length - 1] === x.href && styles.itemSelected,
+          segments.join("/").includes(x.href) && styles.itemSelected,
         ]}
         href={`/${x.href}` as any}
       >
@@ -35,7 +35,7 @@ export default function SideBar(): JSX.Element {
           key={i}
           style={[
             styles.text,
-            segments[segments.length - 1] === x.href && styles.textSelected,
+            segments.join("/").includes(x.href) && styles.textSelected,
           ]}
         >
           {x.name}
@@ -85,7 +85,7 @@ function createSidebar(): SidebarItem[] {
     },
     {
       name: "Usuários",
-      href: "users",
+      href: "users/list",
     },
     {
       name: "Página 3",

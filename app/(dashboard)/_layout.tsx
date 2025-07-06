@@ -10,7 +10,7 @@ export default function DashboardLayout() {
         <Stack
           screenOptions={{
             headerShown: false,
-            contentStyle: styles.stackContent, // Estilo para o conteúdo interno
+            contentStyle: styles.stackContent,
           }}
         />
       </View>
@@ -22,13 +22,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "#fff", // Cor de fundo padrão
+    backgroundColor: "#fff",
   },
   stackContainer: {
     flex: 1,
-    overflow: "hidden", // Impede que conteúdo vaze
+    overflow: "hidden",
   },
   stackContent: {
-    flex: 1, // Garante que o conteúdo interno do Stack ocupe todo o espaço
+    flex: 1,
   },
 });
