@@ -5,9 +5,21 @@ import { FlatList, Text, View } from "react-native";
 interface ListProps {
   data: any[];
   columns: string[];
+  enums?: Record<string, Record<number | string, any>>;
 }
 
-export default function List({ data, columns }: ListProps): JSX.Element {
+export default function List({
+  data,
+  columns,
+  enums = {},
+}: ListProps): JSX.Element {
+  const formatValue = (column: string, value: any) => {
+    if (enums[column] && enums[column][value] !== undefined) {
+      return enums[column][value];
+    }
+    return value;
+  };
+
   const listHeader = columns.map((x, i) => (
     <Text
       key={i}
@@ -22,14 +34,16 @@ export default function List({ data, columns }: ListProps): JSX.Element {
       {columns.map((x, i) => (
         <View key={i} style={{ flex: 1 }}>
           {x === "options" ? (
-            <Link key={i} href={`./${item["id"]}/detail` as any}>
-              <Text key={i} style={{ flex: 1 }}>
-                Editar
-              </Text>
-            </Link>
+            <>
+              <Link key={i} href={`./${item["id"]}/detail` as any}>
+                <Text key={i} style={{ flex: 1 }}>
+                  Editar
+                </Text>
+              </Link>
+            </>
           ) : (
             <Text key={i} style={{ flex: 1 }}>
-              {item[x]}
+              {formatValue(x, item[x])}
             </Text>
           )}
         </View>

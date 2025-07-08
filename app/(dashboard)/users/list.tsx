@@ -1,5 +1,5 @@
 import List from "@/app/components/List";
-import { User } from "@/app/core/models/user";
+import { Status, User, UserRole } from "@/app/core/models/user";
 import { UserService } from "@/app/core/services/userService";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
@@ -24,7 +24,11 @@ export default function UsersList() {
         <Button title={"New User"} />
       </Link>
       <Text style={{ fontSize: 20, marginBottom: 10 }}>Usuários</Text>
-      <List data={users} columns={columns}></List>
+      <List
+        data={users}
+        columns={columns}
+        enums={{ status: Status, role: UserRole }}
+      ></List>
     </View>
   );
 }
